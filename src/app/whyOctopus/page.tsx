@@ -56,24 +56,6 @@ const WhyOctopus = () => {
         Energy could be your best choice for gas and electricity provider this
         year.
       </p>
-      <div className="py-6 px-2 border-t-4 border-b-4 border-dotted border-theme-800">
-        <h3 className="relative mb-3 text-theme-300 font-display text-lg font-semibold pl-6 before:block before:w-2 before:h-6 before:bg-accentPink-500 before:top-1 before:left-0 before:absolute before:-skew-x-12">
-          Get &pound;50 Sign Up Bonus with Our Referral Link
-        </h3>
-        <p>
-          If one signs up through{" "}
-          <a
-            className="underline text-accentPink-500 hover:no-underline hover:text-accentBlue-500"
-            href="https://share.octopus.energy/sky-heron-134"
-            target="_blank"
-          >
-            our exclusive referral link
-          </a>
-          , they will get an extra &pound;50 Sign Up Bonus to pay for their
-          bills. It&apos;s an amazing way to start your journey with an energy
-          provider that cares about both your wallet and the planet.
-        </p>
-      </div>
       <h2 className="font-display text-2xl text-accentPink-500 font-semibold">
         Why Make the Switch to Octopus Energy?
       </h2>

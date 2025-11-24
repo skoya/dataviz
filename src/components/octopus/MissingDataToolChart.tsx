@@ -227,7 +227,17 @@ const MissingDataToolChart = ({
         .flat()
         .filter((data) => data === null).length
     );
-  }, [contractFrom, data, fromDate, height, hiViz, localFromDate, noOfDays, toDate, width]);
+  }, [
+    contractFrom,
+    data,
+    fromDate,
+    height,
+    hiViz,
+    localFromDate,
+    noOfDays,
+    toDate,
+    width,
+  ]);
 
   if (!data) return <Loading />;
 
@@ -326,7 +336,7 @@ const MissingDataToolChart = ({
               >
                 {type === "G" ? `m` : "kWh"}
                 {type === "G" && (
-                  <tspan baseline-shift="super" fontSize={8}>
+                  <tspan baselineShift="super" fontSize={8}>
                     3
                   </tspan>
                 )}

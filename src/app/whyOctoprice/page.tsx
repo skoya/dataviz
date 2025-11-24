@@ -155,32 +155,7 @@ const WhyOctoprice = () => {
           - currently and upcoming Ofgem energy price caps changes around the UK
         </li>
       </ul>
-      <div className="py-6 px-2 border-t-4 border-b-4 border-dotted border-theme-800">
-        <h3 className="relative mb-3 text-theme-300 font-display text-lg font-semibold pl-6 before:block before:w-2 before:h-6 before:bg-accentPink-500 before:top-1 before:left-0 before:absolute before:-skew-x-12">
-          Get &pound;50 Sign Up Bonus with Our Referral Link
-        </h3>
-        <p>
-          If you sign up through{" "}
-          <a
-            className="underline text-accentPink-500 hover:no-underline hover:text-accentBlue-500"
-            href="https://share.octopus.energy/sky-heron-134"
-            target="_blank"
-          >
-            our exclusive referral link
-          </a>
-          , you will get an extra &pound;50 Sign Up Bonus to pay for your bills!
-          There is absolutely no costs or downside to you. It is just exactly as
-          if you go to Octopus website and sign up there directly.
-        </p>
-        <p className="mt-4">
-          For complete transparency, if you sign up through my refer link to
-          Octopus Energy, I will also earn &pound;50 which would contribute to
-          the ongoing development and regular maintenance of this website. This
-          website has an annual running cost of over &pound;100 and I have
-          personally spent over 600 hours of my time on the continual
-          development of this website and tools.
-        </p>
-      </div>
+
       <LottieIcon icon="vip" loop={true} />
       <h3 className="font-display text-xl font-semibold text-accentBlue-500">
         For Current Octopus Energy Users

@@ -192,63 +192,19 @@ const SwitchTariffs = () => {
   return (
     <div className="flex flex-col font-extralight text-lg">
       <h1 className="text-accentBlue-400 font-display text-4xl lg:text-6xl font-medium ">
-        Save £50+ with Octopus
+        Switch to Octopus Energy to Save
       </h1>
       <h2 className="text-accentBlue-400 font-display font-medium text-lg lg:text-2xl mb-8">
-        - plus extra savings based on your ACTUAL consumption data
+        - See how much you can actually save!
       </h2>
 
       <div className="flex flex-col md:flex-row justify-between items-start gap-4">
         <div className="w-full">
-          <p>
-            By simply switching to Octopus Energy using the link below, you get
-            an instant saving of £50! Don&apos;t worry, there is NO penalty/exit
-            fee if you switch out afterwards.
-          </p>
-          <div className="bg-theme-900 mt-8 p-2 px-4 leading-6 text-center rounded-t-3xl">
-            Get an extra{" "}
-            <ImGift className="inline-block -translate-y-1 w-6 h-6 px-1 fill-accentBlue-500" />
-            <strong>£50 bill credit</strong> instantly by{" "}
-            <a
-              href="https://share.octopus.energy/sky-heron-134"
-              target="_blank"
-              className="inline-block underline text-accentPink-500 hover:no-underline"
-            >
-              signing up thru our exclusive Octopus link
-            </a>{" "}
-            !
-          </div>
-          <a
-            href="https://share.octopus.energy/sky-heron-134"
-            target="_blank"
-            className="block bg-theme-950 hover:bg-theme-900"
-          >
-            <div className="flex flex-col p-2 pb-10 md:pt-6 md:flex-row items-center">
-              <div className="w-[100px] md:min-w-[200px] flex items-center justify-center">
-                <Lottie
-                  animationData={Saving}
-                  aria-hidden={true}
-                  loop={true}
-                  className="w-[150px] h-[150px]"
-                />
-              </div>
-              <div>
-                <h3 className="text-4xl mb-2 bg-gradient-to-r from-accentPink-500 via-amber-300 to-accentBlue-500 inline-block text-transparent bg-clip-text">
-                  Get <strong>£50</strong> free credit by signing up!
-                </h3>
-                <p>
-                  Just switch to Octopus through our exclusive link to get a £50
-                  on your account! Swap today for 100% renewable energy and
-                  award winning customer service!
-                </p>
-              </div>
-            </div>
-          </a>
+          
           {!showResults ? (
             <div className="p-8 border border-accentPink-950 rounded-b-3xl relative">
-              <FaCirclePlus className="text-accentPink-800 w-14 h-14 absolute top-0 -translate-x-1/2 -translate-y-1/2 left-1/2 bg-theme-950 rounded-full" />
               <h3 className="text-4xl mb-2 bg-gradient-to-r from-accentPink-500 via-amber-300 to-accentBlue-500 inline-block text-transparent bg-clip-text">
-                Save an extra <strong>£200+</strong> annually if you:
+                Save up to <strong>£200+</strong> annually if you:
               </h3>
               <ol className="list-decimal ml-5 flex flex-col mt-4">
                 <li>

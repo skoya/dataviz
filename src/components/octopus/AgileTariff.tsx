@@ -55,17 +55,7 @@ const AgileTariff = () => {
           setTariff={handleSelect}
           type="Octopus Agile Plan"
           source={AGILE}
-        >
-          <Remark variant="badge">
-            <span className="text-accentPink-500 font-bold pr-2">
-              Octopus has moved most Tracker users to the latest{" "}
-              <span className="text-accentPink-500">Tracker Dec 2023</span> from
-              15Feb onwards. Congratulations if you are the lucky few ones who
-              still stay on the cheaper previous Tracker versions, this page
-              automatically show you the correct version.
-            </span>
-          </Remark>
-        </TariffSelect>
+        ></TariffSelect>
       </section>
       <section className="flex flex-col md:flex-row items-stretch md:justify-center md:items-center gap-4 my-4">
         <PricePaneAgile

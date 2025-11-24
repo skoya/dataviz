@@ -103,7 +103,7 @@ const EnergyPriceCard = ({ type, plan }: IEnergyPriceCard) => {
     <div
       className={`${
         hiViz ? "bg-theme-950/80" : "bg-black/50"
-      } relative flex flex-1 flex-col  p-4 min-w-[250px] min-h-[100px] backdrop-blur-sm lg:backdrop-blur-lg`}
+      } relative flex flex-1 flex-col border rounded-xl border-border p-4 min-w-[250px] min-h-[100px] backdrop-blur-sm lg:backdrop-blur-lg`}
     >
       {isLoading && <Loading />}
       {isError && <ErrorMessage error={error} errorHandler={() => refetch()} />}

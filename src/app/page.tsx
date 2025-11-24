@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 const Home = () => {
   return (
     <div className="lg:col-[content] my-4 flex justify-start items-center relative z-0">
-      <div className="max-w-full w-full md:w-[75%] min-w-[300px] z-10 mt-20 lg:mt-0 mb-20">
+      <div className="max-w-full w-full min-w-[300px] z-10 mt-20 lg:mt-0 mb-20">
         <div className="lg:pl-6 lg:translate-y-3 text-sm font-extralight mb-1">
           Help you compare and select the BEST Octopus Energy electicity, gas
           and export tariffs for both Android and iPhone users.
@@ -61,10 +61,14 @@ const Home = () => {
         </div>
         <div className="lg:pl-6 lg:translate-y-3 mt-2 lg:mt-0 text-sm font-extralight mb-1 flex items-center gap-2">
           <TbTools />
-          <Link href="/whyOctoprice" className="text-accentBlue-500 underline hover:text-accentPink-500 hover:no-underline">Overview of Exclusive Tools for Octopus Energy Users</Link>
+          <Link
+            href="/whyOctoprice"
+            className="text-accentBlue-500 underline hover:text-accentPink-500 hover:no-underline"
+          >
+            Overview of Exclusive Tools for Octopus Energy Users
+          </Link>
         </div>
       </div>
-      <Octopus3d />
     </div>
   );
 };

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title:
       "Save Most Switching to Octopus Energy Agile/Tracker Tariff | Octoprice",
     description:
-      "[free extra £50 credit] Considering switching to Octopus Energy? If you have a smart meter, you can compare different Octopus Energy electricity and gas tariff based on your actual energy usage figures to know how much you can save!",
+      "Considering switching to Octopus Energy? If you have a smart meter, you can compare different Octopus Energy electricity and gas tariff based on your actual energy usage figures to know how much you can save!",
     url: "https://octopriceuk.app/switch",
     siteName: "Octoprice App",
     images: [
