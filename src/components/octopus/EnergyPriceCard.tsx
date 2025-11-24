@@ -102,7 +102,7 @@ const EnergyPriceCard = ({ type, plan }: IEnergyPriceCard) => {
   return (
     <div
       className={`${
-        hiViz ? "bg-theme-950/80" : "bg-black/50"
+        hiViz ? "bg-theme-900/50" : "bg-theme-900/20"
       } relative flex flex-1 flex-col border rounded-xl border-border p-4 min-w-[250px] min-h-[100px] backdrop-blur-sm lg:backdrop-blur-lg`}
     >
       {isLoading && <Loading />}
