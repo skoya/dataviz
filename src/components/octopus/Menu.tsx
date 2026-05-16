@@ -362,6 +362,28 @@ const Menu = () => {
               <span className="text-lg">My </span>
               Octopast <span className="text-lg">Year</span>
             </Link>
+            <div className="ml-4 -mt-2 mb-4 flex flex-col gap-1 text-base">
+              <Link
+                href="/yearInReview/2025"
+                className={`${
+                  pathname === "/yearInReview/2025"
+                    ? "cursor-default text-accentBlue-900"
+                    : "hover:text-accentPink-500"
+                }`}
+              >
+                2025 Visualisation
+              </Link>
+              <Link
+                href="/yearInReview/2026"
+                className={`${
+                  pathname === "/yearInReview/2026"
+                    ? "cursor-default text-accentBlue-900"
+                    : "hover:text-accentPink-500"
+                }`}
+              >
+                2026 Visualisation
+              </Link>
+            </div>
           </div>
           <div>
             <Link

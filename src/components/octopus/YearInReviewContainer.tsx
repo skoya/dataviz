@@ -14,14 +14,14 @@ import { BiRadar } from "react-icons/bi";
 
 export type ErrorType = Record<string, string>;
 
-const YearInReviewContainer = () => {
+const YearInReviewContainer = ({ year = "2024" }: { year?: string }) => {
   const { value, setValue } = useContext(UserContext);
   const loggedIn = !!(value.apiKey && value.accountNumber) || value.testRun;
 
   return (
     <div className="flex flex-col font-extralight text-lg">
       <h1 className="text-accentBlue-400 font-display text-4xl lg:text-6xl font-medium ">
-        My Octopast Year
+        My Octopast Year {year}
       </h1>
       <h2 className="text-accentBlue-400 font-display font-medium text-lg lg:text-2xl mb-8">
         - See how your energy consumption shapes up
@@ -34,7 +34,7 @@ const YearInReviewContainer = () => {
       </div>
 
       {loggedIn ? (
-        <DataArtContainer />
+        <DataArtContainer year={year} />
       ) : (
         <div className="flex flex-col md:flex-row justify-between gap-4 items-start">
           <div className="">

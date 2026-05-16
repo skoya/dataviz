@@ -97,7 +97,7 @@ interface IWeatherData {
   precipitation_hours: string;
 }
 
-const DataArtContainer = () => {
+const DataArtContainer = ({ year = "2024" }: { year?: string }) => {
   const { value, setValue } = useContext(UserContext);
   const {
     postcode,
@@ -123,12 +123,12 @@ const DataArtContainer = () => {
   } = value;
   const chartRef = useRef<null | SVGSVGElement>(null);
 
-  const chartYear = "2024";
-  const fromDate = "2024-01-01";
-  const toDate = "2024-12-31";
+  const chartYear = year;
+  const fromDate = `${chartYear}-01-01`;
+  const toDate = `${chartYear}-12-31`;
   const fromISODate = new Date(fromDate).toISOString();
   const toISODate = new Date(toDate).toISOString();
-  const toChartDate = "2025-01-01T00:00:00.000Z";
+  const toChartDate = new Date(`${Number(chartYear) + 1}-01-01`).toISOString();
 
   const icons = {
     gas: "M 16.682 9.384 A 6.9498 6.9498 90 0 0 15.024 7.08 l -0.582 -0.534 a 0.1618 0.1618 90 0 0 -0.26 0.066 l -0.26 0.746 c -0.162 0.468 -0.46 0.946 -0.882 1.416 c -0.028 0.03 -0.06 0.038 -0.082 0.04 c -0.022 0.002 -0.056 -0.002 -0.086 -0.03 c -0.028 -0.024 -0.042 -0.06 -0.04 -0.096 c 0.074 -1.204 -0.286 -2.562 -1.074 -4.04 C 11.106 3.42 10.2 2.462 9.068 1.794 l -0.826 -0.486 c -0.108 -0.064 -0.246 0.02 -0.24 0.146 l 0.044 0.96 c 0.03 0.656 -0.046 1.236 -0.226 1.718 c -0.22 0.59 -0.536 1.138 -0.94 1.63 a 5.9128 5.9128 90 0 1 -0.95 0.922 a 7.052 7.052 90 0 0 -2.006 2.43 A 6.955 6.955 90 0 0 3.2 12.2 c 0 0.944 0.186 1.858 0.554 2.72 a 6.988 6.988 90 0 0 1.51 2.218 c 0.648 0.64 1.4 1.144 2.238 1.494 C 8.37 18.996 9.29 19.18 10.24 19.18 s 1.87 -0.184 2.738 -0.546 A 6.972 6.972 90 0 0 15.216 17.14 c 0.648 -0.64 1.156 -1.388 1.51 -2.218 a 6.884 6.884 90 0 0 0.554 -2.72 c 0 -0.976 -0.2 -1.924 -0.598 -2.818 z",
@@ -140,18 +140,18 @@ const DataArtContainer = () => {
     (agreement) =>
       (agreement.valid_to === null ||
         new Date(agreement.valid_to).valueOf() >=
-          new Date("2024-12-31").valueOf()) &&
+          new Date(toDate).valueOf()) &&
       new Date(agreement.valid_from).valueOf() <=
-        new Date("2024-12-31").valueOf()
+        new Date(toDate).valueOf()
   );
   const thenETariff = thenEContract?.tariff_code.slice(5, -2) ?? currentETariff;
   const thenGContract = agreementsG?.findLast(
     (agreement) =>
       (agreement.valid_to === null ||
         new Date(agreement.valid_to).valueOf() >=
-          new Date("2024-12-31").valueOf()) &&
+          new Date(toDate).valueOf()) &&
       new Date(agreement.valid_from).valueOf() <=
-        new Date("2024-12-31").valueOf()
+        new Date(toDate).valueOf()
   );
   const thenGTariff = thenGContract?.tariff_code.slice(5, -2) ?? currentGTariff;
 
@@ -476,7 +476,7 @@ const DataArtContainer = () => {
   const xScale = useCallback(
     (d: Date) =>
       scaleUtc([new Date(fromDate), new Date(toDate)], [0, 2 * Math.PI])(d),
-    []
+    [fromDate, toDate]
   );
   /* draw map */
   useEffect(() => {
@@ -867,7 +867,56 @@ const DataArtContainer = () => {
     temperatureContainer.selectAll("*").remove();
     xAxisContainer.selectAll("*").remove();
 
-    csv(`/weather-${value.gsp}.csv`)
+    const loadWeatherData = async (): Promise<IWeatherData[]> => {
+      const latitude = pinData?.result?.latitude;
+      const longitude = pinData?.result?.longitude;
+      const requestedYear = Number(chartYear);
+      const currentYear = new Date().getUTCFullYear();
+      const yesterday = new Date();
+      yesterday.setUTCDate(yesterday.getUTCDate() - 1);
+      const weatherEndDate =
+        requestedYear === currentYear && yesterday < new Date(toDate)
+          ? yesterday.toISOString().slice(0, 10)
+          : toDate;
+
+      if (
+        latitude &&
+        longitude &&
+        requestedYear <= currentYear &&
+        new Date(weatherEndDate).valueOf() >= new Date(fromDate).valueOf()
+      ) {
+        const response = await fetch(
+          `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=${fromDate}&end_date=${weatherEndDate}&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,sunshine_duration,precipitation_hours&timezone=auto`
+        );
+        if (response.ok) {
+          const weather = await response.json();
+          if (weather?.daily?.time) {
+            return weather.daily.time.map((time: string, index: number) => ({
+              time,
+              weather_code: String(weather.daily.weather_code?.[index] ?? ""),
+              sunshine_duration: String(
+                weather.daily.sunshine_duration?.[index] ?? ""
+              ),
+              temperature_2m_max: String(
+                weather.daily.temperature_2m_max?.[index] ?? ""
+              ),
+              temperature_2m_min: String(
+                weather.daily.temperature_2m_min?.[index] ?? ""
+              ),
+              sunrise: String(weather.daily.sunrise?.[index] ?? ""),
+              sunset: String(weather.daily.sunset?.[index] ?? ""),
+              precipitation_hours: String(
+                weather.daily.precipitation_hours?.[index] ?? ""
+              ),
+            }));
+          }
+        }
+      }
+
+      return csv(`/weather-${value.gsp}.csv`) as Promise<IWeatherData[]>;
+    };
+
+    loadWeatherData()
       .then((data) => {
         if (data) {
           drawNightRegion(
@@ -1074,6 +1123,10 @@ const DataArtContainer = () => {
     weatherIcon,
     xScale,
     value.gsp,
+    pinData,
+    chartYear,
+    fromDate,
+    toDate,
   ]);
 
   /* tariff details */
@@ -1801,6 +1854,8 @@ const DataArtContainer = () => {
     colorScheme.consumptionRing,
     colorScheme.electricityLine,
     categoryE,
+    fromDate,
+    toDate,
   ]);
 
   useEffect(() => {
@@ -1934,6 +1989,8 @@ const DataArtContainer = () => {
     colorScheme.electricityLine,
     colorScheme.gasLine,
     categoryG,
+    fromDate,
+    toDate,
   ]);
 
   const canShare = "share" in navigator;
@@ -1968,7 +2025,7 @@ const DataArtContainer = () => {
                 }),
               ],
               title: `My Octopast Year`,
-              text: `Visualize my energy footprint in 2024`,
+              text: `Visualize my energy footprint in ${chartYear}`,
             };
             try {
               await navigator.share(data);
